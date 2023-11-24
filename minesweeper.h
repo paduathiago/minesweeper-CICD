@@ -11,7 +11,7 @@ using std::string;
 #define REVEAL "reveal"
 #define FLAG 2
 #define STATE 3
-#define REMOVE_FLAG 4
+#define REMOVE_FLAG "remove_flag"
 #define RESET "reset"
 #define WIN 6
 #define EXIT 7
@@ -41,5 +41,5 @@ class Minesweeper
         void reset();
         void process_client_action(string action_received);
         void print_board();
-        vector<vector<int>> mount_board(char *file);
+        vector<vector<int>> mount_board(string file);
 };

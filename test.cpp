@@ -29,9 +29,16 @@ void Test::setUp(void)
 
 void Test::mount_board()
 {
-    createMockFile();
-    Minesweeper minesweeper;
-    minesweeper.mount_board("mock_input.txt");
+    Minesweeper game;
+    char file[] = "in.txt"; 
+
+    vector<vector<int>> board = game.mount_board(file);
+
+    // Verifique se a matriz foi preenchida corretamente
+    CPPUNIT_ASSERT_EQUAL(TABLE_DIMENSION, static_cast<int>(board.size()));
+    for (int i = 0; i < TABLE_DIMENSION; ++i) {
+        CPPUNIT_ASSERT_EQUAL(TABLE_DIMENSION, static_cast<int>(board[i].size()));
+    }
 }
 
 /*void Test::test2()
@@ -53,17 +60,6 @@ void Test::test5()
 {
 
 }*/
-void Test::createMockFile() 
-{
-    std::ofstream mockFile("mock_input.txt");
-
-    mockFile << "1,2-1,1\n";
-    mockFile << "1,-1,2,1\n";
-    mockFile << "1,2,1,1\n";
-    mockFile << "0,1,-1,1\n";
-
-    mockFile.close();
-}
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Test);
 

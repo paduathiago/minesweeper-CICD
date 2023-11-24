@@ -1,7 +1,6 @@
 all:
-	g++ -std=c++17 -I. minesweeper.cpp -o mine
-	g++ -std=c++17 -I. tests.cpp -lcppunit -o mineTest
+	g++ -I. -std=c++17 -o test test.cpp minesweeper.cpp -lcppunit
 
 test:
-	chmod +x mine
-	./mineTest
+	./test
+	

@@ -2,6 +2,8 @@
 #include <vector>
 #include <stdio.h>
 #include <string.h>
+#include <sstream>
+#include <fstream>
 #include "minesweeper.h"
 
 using namespace std;
@@ -11,27 +13,30 @@ Minesweeper::Minesweeper()
     count_revealed = 0;
 }
 
-Minesweeper::~Minesweeper()
-{
-    //destructor
-}
+Minesweeper::~Minesweeper() {}
 
-vector<vector<int>> Minesweeper::mount_board(char * file)
+vector<vector<int>> Minesweeper::mount_board(string file)
 {
-    vector<vector<int>> board;
+    ifstream table_input(file); // Nome do arquivo de entrada
 
-    FILE *table_input = fopen(file, "r");
-    if (table_input == NULL)
+    vector<vector<int>> board(TABLE_DIMENSION, vector<int>(TABLE_DIMENSION));
+
+    for (int i = 0; i < TABLE_DIMENSION; i++) 
     {
-        printf("Erro ao abrir o arquivo.\n");
-        exit(1);
+        string line;
+        getline(table_input, line);
+
+        stringstream ss(line);
+
+        for (int j = 0; j < TABLE_DIMENSION; j++) 
+        {
+            string cell;
+            getline(ss, cell, ',');
+
+            stringstream converter(cell);
+            converter >> board[i][j];
+        }
     }
-
-    for (int i = 0; i < TABLE_DIMENSION; i++)
-        for (int j = 0; j < TABLE_DIMENSION; j++)
-            fscanf(table_input, "%d,", &board[i][j]);
-
-    fclose(table_input);
     return board;
 }
 
@@ -94,10 +99,4 @@ void Minesweeper::process_client_action(string action_received)
 
     if (action_received == START)
         start_new_game();
-}
-
-int main()
-{
-
-    return 0;
 }
