@@ -24,15 +24,16 @@ using std::string;
 class Minesweeper
 {
     private:
-        int **current_board;
+        vector<vector<int>> current_board;
+        vector<vector<int>> answer_board;
         int count_revealed;
-        vector<vector<int>> answer_board_int;
         void game_over(string message);
         void start_new_game();
-        
+        vector<vector<int>> mount_board();
+        string file;
 
     public:
-        Minesweeper();
+        Minesweeper(string file);
         ~Minesweeper();
         
         void reveal(int x, int y);
@@ -41,5 +42,8 @@ class Minesweeper
         void reset();
         void process_client_action(string action_received);
         void print_board();
-        vector<vector<int>> mount_board(string file);
+        int get_count_revealed();
+        vector<vector<int>> get_current_board();
+        vector<vector<int>> get_answer_board();
+        
 };

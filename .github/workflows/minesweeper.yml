@@ -23,9 +23,17 @@ jobs:
             elif [ "${{ matrix.os }}" == "windows-latest" ]; then
               choco install cppunit
             fi
-        - name: configure
-          run: ./configure
         - name: make
           run: make
         - name: make test
-          run: make test
+          run: |
+            make test
+            exit_code=$?
+
+            if [ $exit_code -eq 0 ]; then
+              echo "All tests passed. Allowing push..."
+              exit 0
+            else
+              echo "Tests failed. Blocking push..."
+              exit 1
+            fi

@@ -8,45 +8,50 @@
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <minesweeper.h>
 
+using namespace std;
+
 class Test : public CPPUNIT_NS::TestCase
 {
     CPPUNIT_TEST_SUITE(Test);
-    CPPUNIT_TEST(mount_board);
-    //CPPUNIT_TEST(test2);
+    CPPUNIT_TEST(test_constructor);
+    //CPPUNIT_TEST(test_reveal_bomb);
     CPPUNIT_TEST_SUITE_END();
 
-    void createMockFile();
-    
-
     public:
-        void mount_board();
-        //void test2();
+        void test_constructor();
+        //void test_reveal_bomb();
         void setUp(void);
 };
 
 void Test::setUp(void)
-{}
-
-void Test::mount_board()
 {
-    Minesweeper game;
-    char file[] = "in.txt"; 
 
-    vector<vector<int>> board = game.mount_board(file);
+}
 
-    // Verifique se a matriz foi preenchida corretamente
-    CPPUNIT_ASSERT_EQUAL(TABLE_DIMENSION, static_cast<int>(board.size()));
-    for (int i = 0; i < TABLE_DIMENSION; ++i) {
-        CPPUNIT_ASSERT_EQUAL(TABLE_DIMENSION, static_cast<int>(board[i].size()));
+void Test::test_constructor()
+{
+    Minesweeper game = Minesweeper("in.txt");
+    vector<vector<int>> test_board = {{1, 2, -1, 1}, {1, -1, 2, 1}, {1, 2, 1, 1},{0, 1, -1, 1}};
+
+    CPPUNIT_ASSERT_EQUAL(0, game.get_count_revealed());
+    vector<vector<int>> board = game.get_answer_board();
+
+    for (int i = 0; i < TABLE_DIMENSION; i++)
+    {
+        for (int j = 0; j < TABLE_DIMENSION; j++)
+        {
+            CPPUNIT_ASSERT_EQUAL(test_board[i][j], board[i][j]);
+        }
     }
 }
 
-/*void Test::test2()
+/*void Test::test_reveal_bomb()
 {
-    
-}
+    Minesweeper game = Minesweeper("in.txt");
+    CPPUNIT_ASSERT_EQUAL(game.reveal(0, 2)); 
+}*/
 
-void Test::test3()
+/*void Test::test3()
 {
 
 }

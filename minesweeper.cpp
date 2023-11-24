@@ -8,14 +8,33 @@
 
 using namespace std;
 
-Minesweeper::Minesweeper()
+Minesweeper::Minesweeper(string file)
 {
+    this->file = file;
     count_revealed = 0;
+    answer_board = mount_board();
+    start_new_game();
+    //print_board();
 }
 
 Minesweeper::~Minesweeper() {}
 
-vector<vector<int>> Minesweeper::mount_board(string file)
+int Minesweeper::get_count_revealed()
+{
+    return count_revealed;
+}
+
+vector<vector<int>> Minesweeper::get_current_board()
+{
+    return current_board;
+}
+
+vector<vector<int>> Minesweeper::get_answer_board()
+{
+    return answer_board;
+}
+
+vector<vector<int>> Minesweeper::mount_board()
 {
     ifstream table_input(file); // Nome do arquivo de entrada
 
@@ -43,13 +62,26 @@ vector<vector<int>> Minesweeper::mount_board(string file)
 void Minesweeper::start_new_game()
 {
     count_revealed = 0;
+    current_board = vector(TABLE_DIMENSION, vector<int>(TABLE_DIMENSION, -2));
+    cout << "Starting new game" << endl;
+}
+
+void Minesweeper::print_board()
+{
     for (int i = 0; i < TABLE_DIMENSION; i++)
     {
         for (int j = 0; j < TABLE_DIMENSION; j++)
-            current_board[i][j] = HIDDEN;
+        {
+            if (current_board[i][j] == HIDDEN)
+                cout << "- ";
+
+            else if (current_board[i][j] == FLAGGED)
+                cout << "> ";
+            else
+                cout << current_board[i][j] << ' ';
+        }
+        cout << endl;
     }
-    cout << "Starting new game" << endl;
-    // print current board
 }
 
 void Minesweeper::game_over(string message)
@@ -60,21 +92,22 @@ void Minesweeper::game_over(string message)
 
 void Minesweeper::reveal(int x, int y)
 {
-    int revealed_cell = answer_board_int[x][y];
+    int revealed_cell = answer_board[x][y];
     
-        if(revealed_cell == BOMB)
-        {
-            game_over("You lost");
-            count_revealed = 0;
-        }
-        else
-        {
-            current_board[x][y] = revealed_cell;
-            count_revealed++;
+    if(revealed_cell == BOMB)
+    {
+        game_over("You lost");
+        count_revealed = 0;
+    }
+    else
+    {
+        current_board[x][y] = revealed_cell;
+        count_revealed++;
 
-            if(count_revealed == (TABLE_DIMENSION * TABLE_DIMENSION) - NBOMBS)
-                game_over("You won!");
-        }  
+        if(count_revealed == (TABLE_DIMENSION * TABLE_DIMENSION) - NBOMBS)
+            game_over("You won!");
+    }
+    print_board();
 }
 
 void Minesweeper::flag(int x, int y)
