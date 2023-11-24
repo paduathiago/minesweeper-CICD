@@ -14,7 +14,7 @@ Minesweeper::Minesweeper(string file)
     count_revealed = 0;
     answer_board = mount_board();
     start_new_game();
-    //print_board();
+    print_board();
 }
 
 Minesweeper::~Minesweeper() {}

@@ -14,19 +14,17 @@ class Test : public CPPUNIT_NS::TestCase
 {
     CPPUNIT_TEST_SUITE(Test);
     CPPUNIT_TEST(test_constructor);
-    //CPPUNIT_TEST(test_reveal_bomb);
+    CPPUNIT_TEST(test_reveal);
     CPPUNIT_TEST_SUITE_END();
 
     public:
         void test_constructor();
-        //void test_reveal_bomb();
+        void test_reveal();
+        void test_reveal_bomb();
         void setUp(void);
 };
 
-void Test::setUp(void)
-{
-
-}
+void Test::setUp(void) {}
 
 void Test::test_constructor()
 {
@@ -45,11 +43,14 @@ void Test::test_constructor()
     }
 }
 
-/*void Test::test_reveal_bomb()
+void Test::test_reveal()
 {
     Minesweeper game = Minesweeper("in.txt");
-    CPPUNIT_ASSERT_EQUAL(game.reveal(0, 2)); 
-}*/
+    game.reveal(0, 0);
+    CPPUNIT_ASSERT_EQUAL(1, game.get_count_revealed());
+    vector<vector<int>> board = game.get_current_board();
+    CPPUNIT_ASSERT_EQUAL(1, board[0][0]);
+}
 
 /*void Test::test3()
 {
