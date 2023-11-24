@@ -52,9 +52,9 @@ jobs:
             fi
           fi
   
-  win:
+  build-and-test-win:
     runs-on: windows-latest
     steps:
       - name: install cppunit
         run: |
-          dir "C:\Program Files (x86)\CppUnit\lib"
+          ipconfig
