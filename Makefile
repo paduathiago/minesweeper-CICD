@@ -1,7 +1,11 @@
+CXX = g++
+CXXFLAGS = -I. -std=c++17
+LIBS = -lcppunit
+
 all:
-	g++ -I. -std=c++17 -o test test.cpp minesweeper.cpp -lcppunit
+	$(CXX) $(CXXFLAGS) -o test test.cpp $(LIBS)
 
 test:
 	./test
-		
+
 	
