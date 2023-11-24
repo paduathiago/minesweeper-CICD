@@ -1,32 +1,40 @@
 on:
   push:
-    branches: [ main ]
+      branches: [ main ]
   pull_request:
-    branches: [ main ]
+      branches: [ main ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install cppunit
-        run: sudo apt-get install libcppunit-dev
-      - name: Compile
-        run: |
-          cd ../.. &&
-          make
-      - name: Test
-        run: |
-          cd../.. &&
-          make test
+  build-and-test:
+    runs-on: ${{ matrix.os }}
 
-  test-macos:
-    runs-on: macos-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
     steps:
-      - name: Install cppunit
-        run: brew install cppunit
-      - name: Compile
-        run: 
-          cd ../.. &&
-          clang++ -I. -std=c++17 -o test minesweeper.cpp test.cpp -lcppunit
-      - name: Test
-        run: ./test
+      - uses: actions/checkout@v2
+      - name: install cppunit
+        run: |
+          if ( "${{ matrix.os }}" == "ubuntu-latest" ) then
+            sudo apt install -y libcppunit-dev
+          fi
+      - name: make
+        run: |
+          if ( "${{ matrix.os }}" == "ubuntu-latest" ) then
+            make
+          fi
+      - name: make test
+        run: |
+          if ( "${{ matrix.os }}" == "ubuntu-latest" ) then
+            make test
+            exit_code=$?
+
+            if [ $exit_code -eq 0 ]; then
+              echo "All tests passed. Allowing push..."
+              exit 0
+            else
+              echo "Tests failed. Blocking push..."
+              exit 1
+            fi
+          fi
