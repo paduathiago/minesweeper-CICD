@@ -5,32 +5,32 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install cppunit  
-        run: sudo apt-get install libcppunit-dev
-      - name: Compile
-        run: make
-      - name: Test 
-        run: make test
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Install cppunit  
+          run: sudo apt-get install libcppunit-dev
+        - name: Compile
+          run: make
+        - name: Test 
+          run: make test
 
-  test-macos:
-    runs-on: macos-latest
-    steps:
-      - name: Install cppunit    
-        run: brew install cppunit
-      - name: Compile
-        run: clang++ -I. -std=c++17 -o test minesweeper.cpp test.cpp -lcppunit
-      - name: Test 
-        run: ./test
+    test-macos:
+      runs-on: macos-latest
+      steps:
+        - name: Install cppunit    
+          run: brew install cppunit
+        - name: Compile
+          run: clang++ -I. -std=c++17 -o test minesweeper.cpp test.cpp -lcppunit
+        - name: Test 
+          run: ./test
 
-  test-windows:
-    runs-on: windows-latest
-    steps:
-      - name: Install cppunit
-        run:
-      - name: Compile
-        run: 
-      - name: Test 
-        run:  
+    test-windows:
+      runs-on: windows-latest
+      steps:
+        - name: Install cppunit
+          run:
+        - name: Compile
+          run: 
+        - name: Test 
+          run:           
