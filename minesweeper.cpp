@@ -87,7 +87,6 @@ void Minesweeper::print_board()
 void Minesweeper::game_over(string message)
 {
     cout << message << endl;
-    // print answer board
 }
 
 void Minesweeper::reveal(int x, int y)
@@ -96,7 +95,7 @@ void Minesweeper::reveal(int x, int y)
     
     if(revealed_cell == BOMB)
     {
-        game_over("You lost");
+        game_over("You lost!");
         count_revealed = 0;
     }
     else
@@ -107,7 +106,6 @@ void Minesweeper::reveal(int x, int y)
         if(count_revealed == (TABLE_DIMENSION * TABLE_DIMENSION) - NBOMBS)
             game_over("You won!");
     }
-    print_board();
 }
 
 void Minesweeper::flag(int x, int y)

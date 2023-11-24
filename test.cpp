@@ -15,6 +15,7 @@ class Test : public CPPUNIT_NS::TestCase
     CPPUNIT_TEST_SUITE(Test);
     CPPUNIT_TEST(test_constructor);
     CPPUNIT_TEST(test_reveal);
+    CPPUNIT_TEST(test_reveal_bomb);
     CPPUNIT_TEST_SUITE_END();
 
     public:
@@ -52,12 +53,25 @@ void Test::test_reveal()
     CPPUNIT_ASSERT_EQUAL(1, board[0][0]);
 }
 
-/*void Test::test3()
+void Test::test_reveal_bomb()
 {
-
+    Minesweeper game = Minesweeper("in.txt");
+    
+    std::stringstream buffer;
+    std::streambuf* oldCoutBuffer = std::cout.rdbuf(buffer.rdbuf());
+    
+    // Call the function that reveals the bomb
+    game.reveal(0, 2);
+    
+    // Restore cout
+    std::cout.rdbuf(oldCoutBuffer);
+    
+    // Check if the output is "You lost!"
+    std::string output = buffer.str();
+    CPPUNIT_ASSERT_EQUAL(string("You lost!\n"), output);
 }
 
-void Test::test4()
+/*void Test::test4()
 {
 
 }

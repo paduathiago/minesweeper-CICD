@@ -19,7 +19,7 @@ jobs:
             if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
               sudo apt install -y libcppunit-dev
             elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-              sudo port install cppunit
+              brew install cppunit
             elif [ "${{ matrix.os }}" == "windows-latest" ]; then
               choco install cppunit
             fi
