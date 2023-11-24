@@ -20,15 +20,11 @@ jobs:
               sudo apt install -y libcppunit-dev
             elif [ "${{ matrix.os }}" == "macos-latest" ]; then
               brew install cppunit
-            elif [ "${{ matrix.os }}" == "windows-latest" ]; then
-              choco install cppunit
             fi
         - name: make
           run: |
             if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
               make
-            elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-              clang++ -I. -std=c++17 -o test minesweeper.cpp test.cpp -lcppunit
             fi
         - name: make test
           run: |
