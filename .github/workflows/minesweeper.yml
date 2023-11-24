@@ -18,8 +18,6 @@ jobs:
           run: |
             if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
               sudo apt install -y libcppunit-dev
-            elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-              brew install cppunit
             fi
         - name: make
           run: |
