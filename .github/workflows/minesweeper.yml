@@ -29,6 +29,7 @@ jobs:
               make
             elif [ "${{ matrix.os }}" == "macos-latest" ]; then
               clang++ -I. -std=c++17 -o test minesweeper.cpp test.cpp -lcppunit
+            fi
         - name: make test
           run: |
             make test
