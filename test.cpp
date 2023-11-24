@@ -38,9 +38,7 @@ void Test::test_constructor()
     for (int i = 0; i < TABLE_DIMENSION; i++)
     {
         for (int j = 0; j < TABLE_DIMENSION; j++)
-        {
             CPPUNIT_ASSERT_EQUAL(test_board[i][j], board[i][j]);
-        }
     }
 }
 
