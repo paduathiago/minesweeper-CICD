@@ -22,7 +22,7 @@ jobs:
           elif ( "${{ matrix.os }}" == "macos-latest" ) {
             brew install cppunit
           }
-          fi
+          
       - name: make
         run: |
           if ( "${{ matrix.os }}" == "ubuntu-latest" ) {
@@ -31,7 +31,7 @@ jobs:
           elif ( "${{ matrix.os }}" == "macos-latest" ) {
             clang++ -I. -std=c++17 -o test minesweeper.cpp test.cpp -lcppunit
           }
-          fi
+          
       - name: make test
         run: |
           if ( "${{ matrix.os }}" == "ubuntu-latest" ) {
@@ -47,7 +47,6 @@ jobs:
               echo "Tests failed. Blocking push..."
               exit
             }
-            fi
           }
           elif ( "${{ matrix.os }}" == "macos-latest" ) {
             ./test
