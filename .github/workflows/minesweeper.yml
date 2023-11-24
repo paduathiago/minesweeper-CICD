@@ -16,17 +16,17 @@ jobs:
         - uses: actions/checkout@v2
         - name: install cppunit
           run: |
-            if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+            if ( "${{ matrix.os }}" == "ubuntu-latest" ); then
               sudo apt install -y libcppunit-dev
             fi
         - name: make
           run: |
-            if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+            if ( "${{ matrix.os }}" == "ubuntu-latest" ); then
               make
             fi
         - name: make test
           run: |
-            if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+            if ( "${{ matrix.os }}" == "ubuntu-latest" ); then
               make test
               exit_code=$?
 
