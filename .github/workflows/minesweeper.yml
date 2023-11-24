@@ -24,7 +24,11 @@ jobs:
               choco install cppunit
             fi
         - name: make
-          run: make
+          run: |
+            if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+              make
+            elif [ "${{ matrix.os }}" == "macos-latest" ]; then
+              clang++ -I. -std=c++17 -o test minesweeper.cpp test.cpp -lcppunit
         - name: make test
           run: |
             make test
