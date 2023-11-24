@@ -12,11 +12,11 @@ jobs:
         run: sudo apt-get install libcppunit-dev
       - name: Compile
         run: |
-          cd ../..
+          cd ../.. &&
           make
       - name: Test
         run: |
-          cd../..
+          cd../.. &&
           make test
 
   test-macos:
@@ -26,7 +26,7 @@ jobs:
         run: brew install cppunit
       - name: Compile
         run: 
-          cd ../..
+          cd ../.. &&
           clang++ -I. -std=c++17 -o test minesweeper.cpp test.cpp -lcppunit
       - name: Test
         run: ./test
