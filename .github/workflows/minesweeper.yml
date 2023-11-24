@@ -14,7 +14,15 @@ jobs:
   
       steps:
         - uses: actions/checkout@v2
-        
+        - name: install cppunit
+          run: |
+            if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+              sudo apt install -y libcppunit-dev
+            elif [ "${{ matrix.os }}" == "macos-latest" ]; then
+              sudo port install cppunit
+            elif [ "${{ matrix.os }}" == "windows-latest" ]; then
+              choco install cppunit
+            fi
         - name: make
           run: make
         - name: make test
