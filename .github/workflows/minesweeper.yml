@@ -30,14 +30,3 @@ jobs:
           clang++ -I. -std=c++17 -o test minesweeper.cpp test.cpp -lcppunit
       - name: Test
         run: ./test
-
-  test-windows:
-    runs-on: windows-latest
-    steps:
-      - name: Install cppunit
-        run: 
-      - name: Compile
-        run: 
-          
-      - name: Test
-        run: 
